@@ -29,4 +29,4 @@ Lastly, add the following entry to your `dependencies` in your `build.gradle` fi
 implementation 'com.montealegreluis:api-problem:1.0.0'
 ```
 
-Please find what the latest version is [here](https://github.com/MontealegreLuis/api-problem/packages/1180783).
+Please find what the latest version is [here](https://github.com/MontealegreLuis/api-problem/packages/1264439).
