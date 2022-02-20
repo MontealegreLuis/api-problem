@@ -24,19 +24,16 @@ public final class ApiProblemBuilder {
   }
 
   public ApiProblemBuilder withTitle(String title) {
-    Assert.notBlank(title, "Title cannot be blank or null");
     this.title = title;
     return this;
   }
 
   public ApiProblemBuilder withStatus(Integer status) {
-    Assert.notNull(status, "Status cannot be null");
     this.status = status;
     return this;
   }
 
   public ApiProblemBuilder withType(URI type) {
-    Assert.notNull(type, "Type cannot be null");
     this.type = type;
     return this;
   }
