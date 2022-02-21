@@ -8,7 +8,7 @@ import java.util.Map;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiProblemBuilder {
   protected static final List<String> RESERVED_PROPERTIES =
       List.of("type", "title", "status", "details", "instance");
