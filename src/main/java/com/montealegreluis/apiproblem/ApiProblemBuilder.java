@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiProblemBuilder {
-  private static final List<String> RESERVED_PROPERTIES =
+  protected static final List<String> RESERVED_PROPERTIES =
       List.of("type", "title", "status", "details", "instance");
-  private String title;
-  private Integer status;
-  private URI type;
-  private String details;
-  private URI instance;
-  private final Map<String, Object> additionalProperties = new LinkedHashMap<>();
+  protected String title;
+  protected Integer status;
+  protected URI type;
+  protected String details;
+  protected URI instance;
+  protected final Map<String, Object> additionalProperties = new LinkedHashMap<>();
 
   public static ApiProblemBuilder aProblem() {
     return new ApiProblemBuilder();
