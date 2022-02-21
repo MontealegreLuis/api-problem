@@ -9,7 +9,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ApiProblemBuilder {
+public class ApiProblemBuilder {
   private static final List<String> RESERVED_PROPERTIES =
       List.of("type", "title", "status", "details", "instance");
   private String title;
