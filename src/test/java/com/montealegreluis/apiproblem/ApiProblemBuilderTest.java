@@ -153,6 +153,38 @@ final class ApiProblemBuilderTest {
                 .build());
   }
 
+  @Test
+  void it_creates_a_problem_with_an_exception() {
+    var exception = new RuntimeException("Something went wrong");
+
+    var problem =
+        aProblem()
+            .withTitle(BAD_REQUEST.reason())
+            .withStatus(BAD_REQUEST.code())
+            .withType(BAD_REQUEST.type())
+            .withException(exception)
+            .build();
+
+    assertEquals(BAD_REQUEST.reason(), problem.getTitle());
+    assertEquals(BAD_REQUEST.code(), problem.getStatus());
+    assertEquals(BAD_REQUEST.type(), problem.getType());
+    assertEquals(1, problem.getAdditionalProperties().size());
+    assertTrue(problem.getAdditionalProperties().containsKey("exception"));
+  }
+
+  @Test
+  void it_prevents_creating_a_problem_with_a_null_exception() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            aProblem()
+                .withTitle(BAD_REQUEST.reason())
+                .withStatus(BAD_REQUEST.code())
+                .withType(BAD_REQUEST.type())
+                .withException(null)
+                .build());
+  }
+
   private static Stream<Arguments> propertiesProvider() {
     return Stream.of(
         Arguments.of("type", URI.create("https://example.com/problem")),

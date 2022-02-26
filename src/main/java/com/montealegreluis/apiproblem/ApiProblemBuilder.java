@@ -1,5 +1,7 @@
 package com.montealegreluis.apiproblem;
 
+import static com.montealegreluis.activityfeed.ExceptionContextFactory.contextFrom;
+
 import com.montealegreluis.assertions.Assert;
 import java.net.URI;
 import java.util.LinkedHashMap;
@@ -47,6 +49,12 @@ public class ApiProblemBuilder {
   public ApiProblemBuilder withInstance(URI instance) {
     Assert.notNull(instance, "Instance cannot be null");
     this.instance = instance;
+    return this;
+  }
+
+  public ApiProblemBuilder withException(Throwable exception) {
+    Assert.notNull(exception, "Exception cannot be null");
+    additionalProperties.put("exception", contextFrom(exception));
     return this;
   }
 

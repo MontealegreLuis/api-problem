@@ -99,6 +99,45 @@ public final class ConcertNotFoundProblem extends ApiProblem {
 }
 ```
 
+### Exceptions in Problem responses
+
+It is also possible to include exception information in an API Problem response.
+
+```java
+aProblem()
+  .withTitle(INTERNAL_SERVER_ERROR.reason())
+  .withStatus(INTERNAL_SERVER_ERROR.code())
+  .withType(INTERNAL_SERVER_ERROR.type())
+  .withDetails(exception.getMessage())
+  .withException(exception)
+  .build());
+```
+
+The example above would be represented as JSON as follows.
+
+```json
+{
+  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1",
+  "title": "Internal Server Error",
+  "status": 500,
+  "details": "For input string \"two\"",
+  "exception": {
+    "message": "For input string \"two\"",
+    "class": "java.lang.NumberFormatException",
+    "line": 65,
+    "file": "NumberFormatException.java",
+    "trace": [
+      "java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)",
+      "java.base/java.lang.Integer.parseInt(Integer.java:652)",
+      "java.base/java.lang.Integer.parseInt(Integer.java:770)",
+      "com.montealegreluis.activityfeed.Application.main(Application.java:10)"
+    ]
+  }
+}
+```
+
+The response will include previous exceptions if available.
+
 ## Contribute
 
 Please refer to [CONTRIBUTING](https://github.com/MontealegreLuis/api-problem/blob/main/CONTRIBUTING.md) for information on how to contribute to API Problem.
