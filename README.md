@@ -4,14 +4,14 @@
 [![Release workflow](https://github.com/montealegreluis/api-problem/actions/workflows/release.yml/badge.svg)](https://github.com/montealegreluis/api-problem/actions/workflows/release.yml)
 [![semantic-release: conventional-commits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
+API Problem implements [application/problem+json](https://tools.ietf.org/html/rfc7807).
+It comes with convenient factories and builders for most common use cases.
+
 ## Installation
 
 1. [Authenticating to GitHub Packages](https://github.com/MontealegreLuis/api-problem/blob/main/docs/installation/authentication.md)
 2. [Maven](https://github.com/MontealegreLuis/api-problem/blob/main/docs/installation/maven.md)
 3. [Gradle](https://github.com/MontealegreLuis/api-problem/blob/main/docs/installation/gradle.md)
-
-API Problem implements [application/problem+json](https://tools.ietf.org/html/rfc7807).
-It comes with convenient factories and builders for most common use cases.
 
 ## Usage
 
@@ -105,9 +105,7 @@ It is also possible to include exception information in an API Problem response.
 
 ```java
 aProblem()
-  .withTitle(INTERNAL_SERVER_ERROR.reason())
-  .withStatus(INTERNAL_SERVER_ERROR.code())
-  .withType(INTERNAL_SERVER_ERROR.type())
+  .from(INTERNAL_SERVER_ERROR)
   .withDetails(exception.getMessage())
   .withException(exception)
   .build());

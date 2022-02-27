@@ -153,6 +153,15 @@ final class ApiProblemBuilderTest {
                 .build());
   }
 
+  private static Stream<Arguments> propertiesProvider() {
+    return Stream.of(
+        Arguments.of("type", URI.create("https://example.com/problem")),
+        Arguments.of("title", "Unprocessable Entity"),
+        Arguments.of("status", 422),
+        Arguments.of("details", "Input provided is invalid"),
+        Arguments.of("instance", URI.create("https://example.com/instance")));
+  }
+
   @Test
   void it_creates_a_problem_with_an_exception() {
     var exception = new RuntimeException("Something went wrong");
@@ -185,12 +194,21 @@ final class ApiProblemBuilderTest {
                 .build());
   }
 
-  private static Stream<Arguments> propertiesProvider() {
-    return Stream.of(
-        Arguments.of("type", URI.create("https://example.com/problem")),
-        Arguments.of("title", "Unprocessable Entity"),
-        Arguments.of("status", 422),
-        Arguments.of("details", "Input provided is invalid"),
-        Arguments.of("instance", URI.create("https://example.com/instance")));
+  @Test
+  void it_creates_a_problem_from_a_given_status() {
+    var problem = aProblem().from(FORBIDDEN).build();
+
+    assertEquals(FORBIDDEN.reason(), problem.getTitle());
+    assertEquals(FORBIDDEN.code(), problem.getStatus());
+    assertEquals(FORBIDDEN.type(), problem.getType());
+  }
+
+  @Test
+  void it_creates_a_problem_from_a_given_status_with_default_type() {
+    var problem = aProblem().witDefaultType(UNAUTHORIZED).build();
+
+    assertEquals(UNAUTHORIZED.reason(), problem.getTitle());
+    assertEquals(UNAUTHORIZED.code(), problem.getStatus());
+    assertEquals(URI.create("about:blank"), problem.getType());
   }
 }

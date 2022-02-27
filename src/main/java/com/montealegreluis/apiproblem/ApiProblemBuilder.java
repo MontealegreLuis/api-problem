@@ -25,6 +25,20 @@ public class ApiProblemBuilder {
     return new ApiProblemBuilder();
   }
 
+  public ApiProblemBuilder from(Status status) {
+    title = status.reason();
+    this.status = status.code();
+    type = status.type();
+    return this;
+  }
+
+  public ApiProblemBuilder witDefaultType(Status status) {
+    title = status.reason();
+    this.status = status.code();
+    type = Problem.DEFAULT_TYPE;
+    return this;
+  }
+
   public ApiProblemBuilder withTitle(String title) {
     this.title = title;
     return this;
