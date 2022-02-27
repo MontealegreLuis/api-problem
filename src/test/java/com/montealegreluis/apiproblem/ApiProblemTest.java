@@ -56,7 +56,7 @@ final class ApiProblemTest {
             .withType(URI.create("https://example.org/not-found"))
             .withTitle("Concert not found")
             .withStatus(Status.NOT_FOUND.code())
-            .withDetails("Concert with ID 2ca332b9-3f69-4882-abc9-58f534217bdd cannot be found")
+            .withDetail("Concert with ID 2ca332b9-3f69-4882-abc9-58f534217bdd cannot be found")
             .with("concert", "2ca332b9-3f69-4882-abc9-58f534217bdd")
             .build();
 

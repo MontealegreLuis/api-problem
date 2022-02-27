@@ -13,7 +13,7 @@ public class ApiProblem implements Problem {
   private final String title;
   private final Integer status;
   private final URI type;
-  private final String details;
+  private final String detail;
   private final URI instance;
   private final Map<String, Object> additionalProperties;
 
@@ -29,7 +29,7 @@ public class ApiProblem implements Problem {
       String title,
       Integer status,
       URI type,
-      String details,
+      String detail,
       URI instance,
       Map<String, Object> additionalProperties) {
     Assert.notBlank(title, "Title cannot be blank or null");
@@ -38,7 +38,7 @@ public class ApiProblem implements Problem {
     this.status = status;
     Assert.notNull(type, "Type cannot be null");
     this.type = type;
-    this.details = details;
+    this.detail = detail;
     this.instance = instance;
     this.additionalProperties =
         Optional.ofNullable(additionalProperties).orElseGet(LinkedHashMap::new);
@@ -60,8 +60,8 @@ public class ApiProblem implements Problem {
   }
 
   @Override
-  public String getDetails() {
-    return details;
+  public String getDetail() {
+    return detail;
   }
 
   @Override

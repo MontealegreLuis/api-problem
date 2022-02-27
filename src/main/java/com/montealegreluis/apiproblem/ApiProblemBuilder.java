@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiProblemBuilder {
   protected static final List<String> RESERVED_PROPERTIES =
-      List.of("type", "title", "status", "details", "instance");
+      List.of("type", "title", "status", "detail", "instance");
   protected String title;
   protected Integer status;
   protected URI type;
-  protected String details;
+  protected String detail;
   protected URI instance;
   protected final Map<String, Object> additionalProperties = new LinkedHashMap<>();
 
@@ -54,9 +54,9 @@ public class ApiProblemBuilder {
     return this;
   }
 
-  public ApiProblemBuilder withDetails(String details) {
-    Assert.notBlank(details, "Details cannot be blank or null");
-    this.details = details;
+  public ApiProblemBuilder withDetail(String detail) {
+    Assert.notBlank(detail, "Detail cannot be blank or null");
+    this.detail = detail;
     return this;
   }
 
@@ -79,6 +79,6 @@ public class ApiProblemBuilder {
   }
 
   public ApiProblem build() {
-    return new ApiProblem(title, status, type, details, instance, additionalProperties);
+    return new ApiProblem(title, status, type, detail, instance, additionalProperties);
   }
 }

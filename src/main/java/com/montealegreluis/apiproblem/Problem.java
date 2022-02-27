@@ -24,7 +24,7 @@ public interface Problem {
   Integer getStatus();
 
   /** A human-readable explanation specific to this occurrence of the problem. */
-  String getDetails();
+  String getDetail();
 
   /** An absolute URI that identifies the specific occurrence of the problem. */
   URI getInstance();

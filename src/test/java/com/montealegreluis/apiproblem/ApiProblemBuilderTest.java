@@ -54,13 +54,13 @@ final class ApiProblemBuilderTest {
             .withTitle(UNPROCESSABLE_ENTITY.reason())
             .withStatus(UNPROCESSABLE_ENTITY.code())
             .withType(UNPROCESSABLE_ENTITY.type())
-            .withDetails(details)
+            .withDetail(details)
             .build();
 
     assertEquals(UNPROCESSABLE_ENTITY.reason(), problem.getTitle());
     assertEquals(UNPROCESSABLE_ENTITY.code(), problem.getStatus());
     assertEquals(UNPROCESSABLE_ENTITY.type(), problem.getType());
-    assertEquals(details, problem.getDetails());
+    assertEquals(details, problem.getDetail());
   }
 
   @Test
@@ -72,7 +72,7 @@ final class ApiProblemBuilderTest {
                 .withTitle(UNPROCESSABLE_ENTITY.reason())
                 .withStatus(UNPROCESSABLE_ENTITY.code())
                 .withType(UNPROCESSABLE_ENTITY.type())
-                .withDetails(" ")
+                .withDetail(" ")
                 .build());
 
     assertThrows(
@@ -82,7 +82,7 @@ final class ApiProblemBuilderTest {
                 .withTitle(UNPROCESSABLE_ENTITY.reason())
                 .withStatus(UNPROCESSABLE_ENTITY.code())
                 .withType(UNPROCESSABLE_ENTITY.type())
-                .withDetails(null)
+                .withDetail(null)
                 .build());
   }
 
@@ -158,7 +158,7 @@ final class ApiProblemBuilderTest {
         Arguments.of("type", URI.create("https://example.com/problem")),
         Arguments.of("title", "Unprocessable Entity"),
         Arguments.of("status", 422),
-        Arguments.of("details", "Input provided is invalid"),
+        Arguments.of("detail", "Input provided is invalid"),
         Arguments.of("instance", URI.create("https://example.com/instance")));
   }
 
