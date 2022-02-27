@@ -164,7 +164,40 @@ public enum Status {
       500,
       "Internal Server Error",
       URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1")),
-  ;
+  NOT_IMPLEMENTED(
+      501,
+      "Not Implemented",
+      URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.2")),
+  BAD_GATEWAY(
+      502,
+      "Bad Gateway",
+      URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.3")),
+  SERVICE_UNAVAILABLE(
+      503,
+      "Service Unavailable",
+      URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4")),
+  GATEWAY_TIMEOUT(
+      504,
+      "Gateway Timeout",
+      URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.5")),
+  HTTP_VERSION_NOT_SUPPORTED(
+      505,
+      "HTTP Version Not Supported",
+      URI.create("https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.6")),
+  VARIANT_ALSO_NEGOTIATES(
+      506,
+      "Variant Also Negotiates",
+      URI.create("https://tools.ietf.org/html/rfc2295#section-8.1")),
+  INSUFFICIENT_STORAGE(
+      507, "Insufficient Storage", URI.create("https://tools.ietf.org/html/rfc4918#section-11.5")),
+  LOOP_DETECTED(
+      508, "Loop Detected", URI.create("https://tools.ietf.org/html/rfc5842#section-7.2")),
+  BANDWIDTH_LIMIT_EXCEEDED(509, "Bandwidth Limit Exceeded", URI.create("about:blank")),
+  NOT_EXTENDED(510, "Not Extended", URI.create("https://tools.ietf.org/html/rfc2774#section-7")),
+  NETWORK_AUTHENTICATION_REQUIRED(
+      511,
+      "Network Authentication Required",
+      URI.create("https://tools.ietf.org/html/rfc6585#section-6"));
 
   private final int code;
   private final String reason;
