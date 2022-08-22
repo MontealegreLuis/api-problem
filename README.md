@@ -4,7 +4,7 @@
 [![Release workflow](https://github.com/montealegreluis/api-problem/actions/workflows/release.yml/badge.svg)](https://github.com/montealegreluis/api-problem/actions/workflows/release.yml)
 [![semantic-release: conventional-commits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-API Problem implements [application/problem+json](https://tools.ietf.org/html/rfc7807).
+API Problem implements [application/problem+json](https://tools.ietf.org/html/rfc7807) responses.
 It comes with convenient factories and builders for most common use cases.
 
 ## Installation
@@ -15,7 +15,7 @@ It comes with convenient factories and builders for most common use cases.
 
 ## Usage
 
-### Creating problems
+### Creating Problem Details responses
 
 There are cases in which an HTTP status code is enough to convey the necessary information. 
 
@@ -23,7 +23,7 @@ There are cases in which an HTTP status code is enough to convey the necessary i
 ApiProblem.from(Status.NOT_FOUND);
 ```
 
-Will produce this:
+The above call will produce the following response:
 
 ```json
 {
@@ -33,17 +33,18 @@ Will produce this:
 }
 ```
 
-As specified by [Predefined Problem Types](https://tools.ietf.org/html/rfc7807#section-4.2):
+In some scenarios a `type` might not be necessary.
+As specified by the [Predefined Problem Types](https://tools.ietf.org/html/rfc7807#section-4.2) section:
 
 > The "about:blank" URI, when used as a problem type, indicates that the problem has no additional semantics beyond that of the HTTP status code.
 
-In this case use the following factory.
+If you want to omit the `type`, please use the following factory.
 
 ```java
 ApiProblem.witDefaultType(Status.NOT_FOUND);
 ```
 
-It will produce this:
+It will produce the following response:
 
 ```json
 {
@@ -55,15 +56,19 @@ It will produce this:
 ### Problem Builder
 
 Most of the time you'll need to define problem types that are unique to your application. 
-The Problem Builder offers a fluent API to create problem instances without the need to create custom classes:
+The `ApiProblemBuilder` class offers a fluent API to create problem instances without the need to create custom classes:
 
 ```java
-ApiProblemBuilder.aProblem()
+import static com.montealegreluis.apiproblem.ApiProblemBuilder.aProblem;
+
+// ...
+
+aProblem()
   .withType(URI.create("https://example.org/not-found"))
   .withTitle("Concert not found")
   .withStatus(Status.NOT_FOUND.code())
   .withDetail("Concert with ID 2ca332b9-3f69-4882-abc9-58f534217bdd cannot be found")
-  .with("concert", "2ca332b9-3f69-4882-abc9-58f534217bdd")
+  .with("concertId", "2ca332b9-3f69-4882-abc9-58f534217bdd")
   .build();
 ```
 
@@ -75,7 +80,7 @@ Producing the following response.
   "title": "Concert not found",
   "status": 404,
   "details": "Concert with ID 2ca332b9-3f69-4882-abc9-58f534217bdd cannot be found",
-  "concert": "2ca332b9-3f69-4882-abc9-58f534217bdd"
+  "concertId": "2ca332b9-3f69-4882-abc9-58f534217bdd"
 }
 ```
 
@@ -86,17 +91,21 @@ The final stage of customization is achieved by sub-classing `ApiProblem`.
 ```java
 public final class ConcertNotFoundProblem extends ApiProblem {
   private static final URI TYPE = URI.create("https://example.com/not-found");
-  private final String concert;
+  private final String concertId;
 
-  public ConcertNotFoundProblem(final String concert) {
-    super("Concert not found", 404, TYPE, format("Concert with ID %s cannot be found", concert), null, null);
-    this.product = product;
+  public ConcertNotFoundProblem(final String concertId) {
+    super("Concert not found", 404, TYPE, format("Concert with ID %s cannot be found", concertId), null, null);
+    this.concertId = concertId;
   }
 
-  public String getConcert() {
-    return concert;
+  public String getConcertId() {
+    return concertId;
   }
 }
+
+// ...
+
+new ConcertNotFoundProblem("e2e864c7-9646-4219-ab96-6f9eafdcf7a5");
 ```
 
 ### Exceptions in Problem responses
@@ -111,7 +120,7 @@ aProblem()
   .build());
 ```
 
-The example above would be represented as JSON as follows.
+The example above would be represented as a JSON response as follows.
 
 ```json
 {
